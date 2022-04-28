@@ -33,6 +33,9 @@ export default {
     try {
       // 서버에서 전달받은 데이터로 초기화
       _self.prdData = _self.$store.state.ssrRenderData;
+      console.log(_self.prdData)
+      // store의 ssrRenderData 초기화
+      _self.$store.commit('SET_SSR_RENDER_DATA', {});
       // 만약 서버에서 받은 데이터가 없으면 API 호출
       if(_self.prdData.prdNo == undefined) {
         const prdNo = _self.$route.query.prdNo ? _self.$route.query.prdNo : 1;

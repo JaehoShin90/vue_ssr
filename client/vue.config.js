@@ -5,6 +5,7 @@ const isSSR = Boolean(process.env.SSR);
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production';
+const isDev = process.env.NODE_ENV === 'dev';
 
 module.exports = {
   // server에서 rendering 시 필요
@@ -17,12 +18,12 @@ module.exports = {
       template: 'public/index.html',
 
       // 빌드시는 server에서, 일반 vue 실행시는 client에서
-      filename: isProduction ? '../template/index.html' : 'index.html',
+      filename: (isProduction || isDev) ? '../template/index.html' : 'index.html',
     }
   },
   chainWebpack: config => {
     // 빌드하는게 아니라면 추가설정 필요없음
-    if(!isProduction) return
+    if(!isProduction && !isDev) return
 
     // CSR 관련 설정
     if (!isSSR) {
